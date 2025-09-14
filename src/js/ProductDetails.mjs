@@ -38,30 +38,7 @@ export default class ProductDetails {
 
 
 
-    //     const productCard = `
-    //     <h3>${this.product.Brand.Name}</h3>
 
-    //     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
-
-    //     <img
-    //       class="divider"
-    //       src="${this.product.Image}"
-    //       alt="${this.product.NameWithoutBrand}"
-    //     />
-
-    //     <p class="product-card__price">$${this.product.FinalPrice}</p>
-
-    //     <p class="product__color">${this.product.Colors.map(color => color.ColorName).join(", ")}</p>
-
-    //     <p class="product__description">${this.product.DescriptionHtmlSimple}</p>
-
-    //     <div class="product-detail__add">
-    //       <button id="addToCart" data-id="${this.productId}">Add to Cart</button>
-    //     </div>`
-
-
-    //   qs("section.product-detail").innerHTML = productCard;
-    //   qs("#addToCart").addEventListener("click", this.addProductToCart.bind(this));
     }
 
 }

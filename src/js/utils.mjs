@@ -57,6 +57,14 @@ export function getParam(param) {
   return value;
 }
 
+export function  renderListWithTemplate (list, parentElement,  templateFn, position = "beforeend", clear = false) {
+  const productHtml =  list.map(templateFn).join("");
+
+  if (clear) parentElement.innerHTML = "";
+
+  parentElement.insertAdjacentHTML(position, productHtml);
+}
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
