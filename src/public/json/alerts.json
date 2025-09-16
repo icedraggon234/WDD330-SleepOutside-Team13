@@ -1,0 +1,12 @@
+[
+  {
+    "message": "🚨 This is only a test",
+    "background": "darkblue",
+    "color": "white"
+  },
+  {
+    "message": "🔥 Flash Sale! 20% off all tents this weekend!",
+    "background": "crimson",
+    "color": "white"
+  }
+]
