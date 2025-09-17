@@ -57,12 +57,50 @@ export function getParam(param) {
   return value;
 }
 
-export function  renderListWithTemplate (list, parentElement,  templateFn, position = "beforeend", clear = false) {
-  const productHtml =  list.map(templateFn).join("");
+export function  renderListWithTemplate(list, parentElement,  templateFn, position = "beforeend", clear = false) {
+  const html =  list.map(templateFn).join("");
 
   if (clear) parentElement.innerHTML = "";
 
-  parentElement.insertAdjacentHTML(position, productHtml);
+  parentElement.insertAdjacentHTML(position, html);
+}
+
+export function  renderWithTemplate(template, parentElement, data, callback) {
+  if(callback) callback(data);
+
+
+  parentElement.insertAdjacentHTML("beforeend", template);
+
+}
+
+export async function loadTemplate(path) {
+  try {
+    const response = await fetch(path);
+
+    if (!response.ok) {
+      throw new Error(`Error with fetching template data: ${response.status}`);
+    }
+
+    const templateData = await response.text();
+
+    return templateData;
+
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function loadHeaderFooter(){
+  const headerHtmlText = await loadTemplate("../partials/header.html");
+  const footerHtmlText = await loadTemplate("../partials/footer.html");
+
+  const headerElement = qs("header");
+  const footerElement = qs("footer");
+
+  renderWithTemplate(headerHtmlText, headerElement);
+  renderWithTemplate(footerHtmlText, footerElement);
+
 }
 
 export function  renderWithTemplate(template, parentElement, data, callback) {
