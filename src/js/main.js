@@ -1,6 +1,6 @@
 import ProductData from "../js/ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { qs } from "./utils.mjs";
+import { loadHeaderFooter, qs } from "./utils.mjs";
 import Alert from "./Alert.js";
 
 const category = "tents";
@@ -13,3 +13,5 @@ productList.init();
 
 const alerts = new Alert();
 alerts.loadAlerts();
+
+loadHeaderFooter();
