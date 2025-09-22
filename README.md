@@ -1,5 +1,5 @@
 # BYU-Pathway Worldwide Online
-## WDD 330 - Web Frontend Development II
+### WDD 330 - Web Frontend Development II
 
 The url to the production site on netlify.
 https://super-brioche-29e255.netlify.app/
