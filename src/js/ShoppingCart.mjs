@@ -1,4 +1,4 @@
-import { getLocalStorage, renderListWithTemplate } from "./utils.mjs";
+import { getLocalStorage, qs, renderListWithTemplate } from "./utils.mjs";
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -29,6 +29,24 @@ export default class ShoppingCart {
     init() {
 
         renderListWithTemplate(this.productList, this.listElement, cartItemTemplate, "beforeend");
+
+        if (this.productList[0]) {
+          qs("div.cart-footer").classList.remove("hide");
+          console.log(this.productList)
+
+          const productPrices = this.productList.map(product => product.FinalPrice);
+          const total = productPrices.reduce((total, productPrice) => total + productPrice, 0);
+          const formatter = new Intl.NumberFormat(undefined, {
+            style: "currency",
+            currency: "USD"
+          });
+
+          const formattedTotal = formatter.format(total);
+          console.log(formattedTotal)
+
+          qs("p.cart-total").textContent = `Total: ${formattedTotal}`;
+
+        }
     }
 
 
