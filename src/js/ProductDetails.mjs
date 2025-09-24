@@ -26,7 +26,7 @@ export default class ProductDetails {
         const [h3, h2, img, price, color, description, button] = qs("section.product-detail").querySelectorAll("h3, h2, img, p, p, p, button");
         h3.textContent = this.product.Brand.Name;
         h2.textContent = this.product.NameWithoutBrand;
-        img.src = this.product.Image;
+        img.src = this.product.Images.PrimaryLarge;
         img.alt = this.product.NameWithoutBrand;
         price.textContent = `$${this.product.FinalPrice}`;
         

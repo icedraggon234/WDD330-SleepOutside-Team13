@@ -13,7 +13,7 @@ export default class Alert {
         this.render(alerts);
       }
     } catch (err) {
-      console.error("Error loading alerts:", err);
+      alert("Error loading alerts. Please try again later.");
     }
   }
 
