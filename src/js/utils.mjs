@@ -105,3 +105,13 @@ export function setClick(selector, callback) {
 export function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
 }
+
+export function formatNumToCurrency(num) {
+  const formattedNum = new Intl.NumberFormat(undefined, {
+            style: "currency",
+            currency: "USD"
+          }).format(num);
+  
+
+  return formattedNum;
+}
