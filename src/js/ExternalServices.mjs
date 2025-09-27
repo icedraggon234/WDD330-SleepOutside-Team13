@@ -1,5 +1,4 @@
-const baseURL = import.meta.env.VITE_SERVER_URL;
-
+const baseURL = "/json/";  // points to /public/json/
 
 function convertToJson(res) {
   if (res.ok) {
@@ -10,43 +9,45 @@ function convertToJson(res) {
 }
 
 export default class ExternalServices {
-  constructor() {
-  }
+  constructor() {}
+
   async getData(category) {
     try {
-      const response = await fetch(`${baseURL}products/search/${category}`);
-      
-      if (!response.ok) throw new Error(`Something wrong with fetching the data: ${response.status}`);
+      const response = await fetch(`${baseURL}${category}.json`);
+
+      if (!response.ok) {
+        throw new Error(`Something went wrong fetching ${category}: ${response.status}`);
+      }
 
       const jsonData = await convertToJson(response);
-
-      return jsonData.Result;
-
+      return jsonData;  // local JSON is already the array, no .Result
     } catch (error) {
-      console.error(error);
+      console.error("❌ getData error:", error);
+      return [];
     }
-    
-
   }
+
   async findProductById(id) {
-
-    const response = await fetch(`${baseURL}product/${id}`);
-
-    const product = await convertToJson(response);
-
-    return product.Result;
+    try {
+      // loop through JSON files to find product by Id
+      const categories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
+      for (let category of categories) {
+        const response = await fetch(`${baseURL}${category}.json`);
+        if (response.ok) {
+          const data = await convertToJson(response);
+          const product = data.find((item) => item.Id === id);
+          if (product) return product;
+        }
+      }
+      throw new Error(`Product with id ${id} not found`);
+    } catch (error) {
+      console.error("❌ findProductById error:", error);
+      return null;
+    }
   }
 
   async checkout(data) {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    };
-    const response = await fetch(`${baseURL}checkout`, options);
-    return response;
-
+    console.warn("⚠️ Checkout not implemented for local JSON data.");
+    return { ok: false };
   }
 }
