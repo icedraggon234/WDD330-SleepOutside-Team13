@@ -1,4 +1,4 @@
-import { getLocalStorage, qs, renderListWithTemplate } from "./utils.mjs";
+import { formatNumToCurrency, getLocalStorage, qs, renderListWithTemplate } from "./utils.mjs";
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -36,13 +36,9 @@ export default class ShoppingCart {
 
           const productPrices = this.productList.map(product => product.FinalPrice);
           const total = productPrices.reduce((total, productPrice) => total + productPrice, 0);
-          const formatter = new Intl.NumberFormat(undefined, {
-            style: "currency",
-            currency: "USD"
-          });
+          
 
-          const formattedTotal = formatter.format(total);
-          console.log(formattedTotal)
+          const formattedTotal = formatNumToCurrency(total);
 
           qs("p.cart-total").textContent = `Total: ${formattedTotal}`;
 
