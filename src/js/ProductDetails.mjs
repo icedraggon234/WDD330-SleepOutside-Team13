@@ -1,5 +1,5 @@
 // ProductDetails.mjs
-import { addToLocalStorage, qs } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, qs } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -23,16 +23,28 @@ export default class ProductDetails {
   }
 
   addProductToCart() {
-    addToLocalStorage("so-cart", this.product);
+    const cart = getLocalStorage("so-cart");
 
-    // Simple alert confirmation
+    // Check if product already exists in cart
+    const existing = cart.find(item => item.Id === this.productId);
+    if (existing) {
+      existing.quantity = (existing.quantity || 1) + 1;
+    } else {
+      this.product.quantity = 1;
+      cart.push(this.product);
+    }
+
+    // Save updated cart
+    setLocalStorage("so-cart", cart);
+
+    // Alert confirmation
     alert(`✅ Added "${this.product.NameWithoutBrand}" to your cart!`);
 
-    // Optional: update a cart badge
+    // Optional: update cart badge
     const cartCount = qs("#cart-count");
     if (cartCount) {
-      const current = parseInt(cartCount.textContent) || 0;
-      cartCount.textContent = current + 1;
+      const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      cartCount.textContent = totalCount;
     }
   }
 
@@ -55,7 +67,7 @@ export default class ProductDetails {
     price.textContent = `$${this.product.FinalPrice?.toFixed(2) || "0.00"}`;
     color.textContent = this.product.Colors?.map(c => c.ColorName).join(", ") || "N/A";
     description.innerHTML = this.product.DescriptionHtmlSimple || "";
-    
+
     if (button) {
       button.dataset.id = this.productId || "";
     }
