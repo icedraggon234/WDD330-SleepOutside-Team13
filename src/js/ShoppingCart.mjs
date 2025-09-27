@@ -41,45 +41,24 @@ export default class ShoppingCart {
     this.listElement.innerHTML = "";
     renderListWithTemplate(this.productList, this.listElement, cartItemTemplate, "beforeend");
 
-    if (this.productList.length > 0) {
-      qs("div.cart-footer").classList.remove("hide");
-    } else {
-      qs("div.cart-footer").classList.add("hide");
-    }
-  }
+        if (this.productList[0]) {
+          qs("div.cart-footer").classList.remove("hide");
+          console.log(this.productList)
 
-  attachQuantityHandlers() {
-    this.listElement.addEventListener("click", (e) => {
-      if (e.target.classList.contains("increase") || e.target.classList.contains("decrease")) {
-        const li = e.target.closest("li");
-        const id = li.dataset.id;
-        const product = this.productList.find((p) => p.Id === id);
+          const productPrices = this.productList.map(product => product.FinalPrice);
+          const total = productPrices.reduce((total, productPrice) => total + productPrice, 0);
+          const formatter = new Intl.NumberFormat(undefined, {
+            style: "currency",
+            currency: "USD"
+          });
 
-        if (e.target.classList.contains("increase")) {
-          product.quantity = (product.quantity || 1) + 1;
-        } else if (e.target.classList.contains("decrease")) {
-          product.quantity = (product.quantity || 1) - 1;
-          if (product.quantity < 1) product.quantity = 1;
+          const formattedTotal = formatter.format(total);
+          console.log(formattedTotal)
+
+          qs("p.cart-total").textContent = `Total: ${formattedTotal}`;
+
         }
+    }
 
-        setLocalStorage("so-cart", this.productList);
-        this.renderCart();
-        this.updateTotal();
-      }
-    });
-  }
 
-  updateTotal() {
-    const total = this.productList.reduce(
-      (sum, item) => sum + item.FinalPrice * (item.quantity || 1),
-      0
-    );
-
-    const formatter = new Intl.NumberFormat(undefined, {
-      style: "currency",
-      currency: "USD",
-    });
-
-    qs("p.cart-total").textContent = `Total: ${formatter.format(total)}`;
-  }
 }
