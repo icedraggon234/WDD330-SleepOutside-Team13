@@ -217,6 +217,82 @@ button {
 }
 
 /* End product list card */
+/* Form styles */
+form {
+  max-width: 600px;
+  margin: auto;
+  padding: 1em;
+  border: 1px solid var(--light-grey);
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+form fieldset {
+  border: none;
+  margin-bottom: 1em;
+}
+
+form legend {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  border: 1px solid var(--light-grey);
+  border-radius: 3px;
+  font-size: 1em;
+}
+
+form button {
+  padding: 0.75em 1.5em;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+}
+
+input[type="number"] {
+  appearance: textfield;
+}
+/* End form styles */
+/* Start alert styles */
+.alert {
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+  padding: 0.25em;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert p {
+  margin: 0;
+  padding: 0;
+}
+
+.alert span {
+  cursor: pointer;
+  font-weight: bold;
+}
+/* End alert styles */
 
 .product-detail {
   padding: 1em;
@@ -296,16 +372,15 @@ footer {
   padding: 1em;
 }
 
-
 .qty-btn {
-  display: inline-flex;  
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 32px;                
+  width: 32px;
   height: 32px;
-  padding: 0;                  
-  margin: 0 0.25em;            
-  font-size: 1.2rem;            
+  padding: 0;
+  margin: 0 0.25em;
+  font-size: 1.2rem;
   background-color: var(--secondary-color);
   color: rgb(156, 155, 155);
   border: none;
@@ -315,7 +390,7 @@ footer {
 
 .qty-btn:hover {
   background-color: var(--tertiary-color);
-  color:#303030
+  color: #303030;
 }
 
 .qty-value {
@@ -323,3 +398,27 @@ footer {
   min-width: 24px;
   text-align: center;
 }
+
+/* Quantity button styles */
+.cart-card__quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.qty-btn {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.qty-value {
+  min-width: 2rem;
+  text-align: center;
+  display: inline-block;
+}
+/* End quantity button styles */

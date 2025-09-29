@@ -1,8 +1,8 @@
-import { getLocalStorage, setLocalStorage, qs, renderListWithTemplate } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, qs, renderListWithTemplate, formatNumToCurrency } from "./utils.mjs";
 
 function cartItemTemplate(item) {
   const quantity = item.quantity || 1;
-  const lineTotal = (item.FinalPrice * quantity).toFixed(2);
+  const lineTotal = formatNumToCurrency(item.FinalPrice * quantity);
 
   return `<li class="cart-card divider" data-id="${item.Id}">
     <a href="#" class="cart-card__image">
@@ -17,7 +17,7 @@ function cartItemTemplate(item) {
       <span class="qty-value">${quantity}</span>
       <button class="qty-btn increase">+</button>
     </div>
-    <p class="cart-card__price">$${lineTotal}</p>
+    <p class="cart-card__price">${lineTotal}</p>
   </li>`;
 }
 

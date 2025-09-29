@@ -1,11 +1,13 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 
-function convertToJson(res) {
+async function convertToJson(res) {
+  const jsonData = await res.json();
+
   if (res.ok) {
-    return res.json();
+    return jsonData;
   } else {
-    throw new Error("Bad Response");
+    throw { name: "servicesError", message: jsonData}
   }
 }
 
@@ -13,18 +15,16 @@ export default class ExternalServices {
   constructor() {
   }
   async getData(category) {
-    try {
+    // Moved around some of the error handling, it still exists, just in other places in the code.
+    // convertToJson now throws an error for the response. 
+
       const response = await fetch(`${baseURL}products/search/${category}`);
       
-      if (!response.ok) throw new Error(`Something wrong with fetching the data: ${response.status}`);
 
       const jsonData = await convertToJson(response);
 
       return jsonData.Result;
 
-    } catch (error) {
-      console.error(error);
-    }
     
 
   }

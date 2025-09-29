@@ -115,3 +115,33 @@ export function formatNumToCurrency(num) {
 
   return formattedNum;
 }
+
+
+export function alertMessage(message, scroll=true, durration=0) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  
+  const alertMessage = document.createElement("p");
+  const removeButton = document.createElement("span");
+
+  alertMessage.textContent = message;
+  removeButton.textContent = "X";
+
+  removeButton.addEventListener("click", event => {
+      event.target.parentElement.remove();
+  })
+alert.append(alertMessage, removeButton);
+
+
+  document.querySelector("main").insertAdjacentElement("afterbegin", alert);
+
+  if (scroll) {
+    window.scrollTo(0,0);
+  }
+
+  if (durration) {
+    setTimeout(() => {
+      alert.remove();
+    }, durration);
+  }
+}
