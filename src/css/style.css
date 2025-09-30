@@ -422,3 +422,17 @@ footer {
   display: inline-block;
 }
 /* End quantity button styles */
+/* Remove button styles */
+.cart-card .remove {
+  cursor: pointer;
+  color: var(--tertiary-color);
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+.cart-card .remove:hover {
+  color: black;
+  background-color: var(--light-grey);
+}
+/* End remove button styles */

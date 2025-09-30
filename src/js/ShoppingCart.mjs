@@ -16,6 +16,8 @@ function cartItemTemplate(item) {
       <button class="qty-btn decrease">-</button>
       <span class="qty-value">${quantity}</span>
       <button class="qty-btn increase">+</button>
+      
+      <span class="remove">X</span>
     </div>
     <p class="cart-card__price">${lineTotal}</p>
   </li>`;
@@ -56,6 +58,12 @@ export default class ShoppingCart {
       const product = this.productList.find(p => p.Id === id);
       if (!product) return;
 
+      // Added a check for a button that removes the item
+      if (e.target.matches("span.remove")) {
+        this.removeItemHandler(li);
+        return
+      }
+      
       if (e.target.classList.contains("increase")) {
         product.quantity = (product.quantity || 1) + 1;
       } else if (e.target.classList.contains("decrease")) {
@@ -81,4 +89,12 @@ export default class ShoppingCart {
 
     qs("p.cart-total").textContent = `Total: ${formatter.format(total)}`;
   }
+
+  
+  removeItemHandler(li) {
+    this.productList = this.productList.filter((product) => li.dataset.id !== product.Id);
+    setLocalStorage("so-cart", this.productList);
+    this.renderCart();
+  }
 }
+
